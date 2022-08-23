@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package test;
+
+option go_package = "./test";
+
+service Test {
+    rpc test(Req) returns(Resp);
+}
+
+message Req {
+    uint32 id = 1;
+}
+
+message Resp {
+    uint32 id = 1;
+    string name = 2;
+}

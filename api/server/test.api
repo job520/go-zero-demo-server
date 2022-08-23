@@ -1,0 +1,13 @@
+type (
+	Req {
+		Id string `path:"id"`
+	}
+	Resp {
+		Id   string `json:"id"`
+		Name string `json:"name"`
+	}
+)
+service test {
+	@handler testGet
+	get /test/:id (Req) returns (Resp)
+}
