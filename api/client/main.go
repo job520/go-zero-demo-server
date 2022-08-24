@@ -28,7 +28,6 @@ func HTTP_GET(url string) (string, error) {
 		}
 	}
 }
-
 func main() {
 	url := "http://localhost:8888/test/1"
 	ret, err := HTTP_GET(url)

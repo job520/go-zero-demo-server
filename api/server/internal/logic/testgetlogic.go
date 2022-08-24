@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"gorm.io/gorm"
 
 	"demo/api/server/internal/svc"
 	"demo/api/server/internal/types"
@@ -23,11 +24,27 @@ func NewTestGetLogic(ctx context.Context, svcCtx *svc.ServiceContext) *TestGetLo
 	}
 }
 
-func (l *TestGetLogic) TestGet(req *types.Req) (resp *types.Resp, err error) {
-	// todo: add your logic here and delete this line
+type Product struct {
+	gorm.Model
+	Code  string
+	Price uint
+}
 
-	return &types.Resp{
-		Id:   "",
-		Name: "",
-	}, nil
+func (l *TestGetLogic) TestGet(req *types.Req) (resp *types.Resp, err error) {
+	db := l.svcCtx.Db
+	rdb := l.svcCtx.Redis
+	var ctx = context.Background()
+	// 使用 gorm
+	db.AutoMigrate(&Product{})
+	// 使用 redis
+	err = rdb.Set(ctx, "foo", "bar", 0).Err()
+	if err != nil {
+		logx.Error(err)
+	}
+	val, err := rdb.Get(ctx, "foo").Result()
+	if err != nil {
+		logx.Error(err)
+	}
+	logx.Info("foo: ", val)
+	return &types.Resp{}, nil
 }
