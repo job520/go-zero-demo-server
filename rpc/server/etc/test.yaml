@@ -1,5 +1,6 @@
 Name: test.rpc
 ListenOn: 127.0.0.1:8080
+TestValue: "test value from test.rpc"
 Etcd:
   Hosts:
   - 127.0.0.1:2379

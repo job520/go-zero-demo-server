@@ -46,5 +46,8 @@ func (l *TestGetLogic) TestGet(req *types.Req) (resp *types.Resp, err error) {
 		logx.Error(err)
 	}
 	logx.Info("foo: ", val)
-	return &types.Resp{}, nil
+	return &types.Resp{
+		Id:   "1",
+		Name: l.svcCtx.Config.TestValue,
+	}, nil
 }

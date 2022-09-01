@@ -46,5 +46,8 @@ func (l *TestLogic) Test(in *test.Req) (*test.Resp, error) {
 		logx.Error(err)
 	}
 	logx.Info("foo: ", val)
-	return &test.Resp{}, nil
+	return &test.Resp{
+		Id:   1,
+		Name: l.svcCtx.Config.TestValue,
+	}, nil
 }
